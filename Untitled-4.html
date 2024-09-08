@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal website of 郝大鑫">
+    <title>郝大鑫</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .section {
+            padding: 100px 40px;
+            text-align: center;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+        }
+
+        #about, #portfolio, #contact {
+            margin: 20px auto;
+        }
+
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .gallery img {
+            width: 200px;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">郝大鑫</div>
+        <nav>
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about" class="section">
+        <h1>About Me</h1>
+        <p>Hello! I am 郝大鑫, a photographer and creative professional. Welcome to my personal space on the web.</p>
+    </section>
+
+    <section id="portfolio" class="section">
+        <h1>Portfolio</h1>
+        <div class="gallery">
+            <!-- 图片路径需要与你的项目结构匹配 -->
+            <img src="file:///C:/Users/YourUsername/Desktop/新建文件夹%20(13)/images/photo1.jpg" alt="Portfolio Image 1">
+            <img src="images/photo2.jpg" alt="Portfolio Image 2">
+            <img src="images/photo3.jpg" alt="Portfolio Image 3">
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h1>Contact</h1>
+        <form id="contactForm" action="#" method="post">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 郝大鑫是这里偷偷摸摸的看着你.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const sections = document.querySelectorAll('.section');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.querySelector('input[name="name"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+            const message = document.querySelector('textarea[name="message"]').value;
+
+            if (name && email && message) {
+                alert('Thank you for your message, ' + name + '!');
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+</body>
+</html>
